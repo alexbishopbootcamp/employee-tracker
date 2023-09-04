@@ -46,12 +46,33 @@ async function viewDepartments(){
 }
 
 async function viewRoles(){
-  const [rows, fields] = await db.query('SELECT * FROM role');
+  const [rows, fields] = await db.query(`
+    SELECT 
+      r.id AS Role_ID, 
+      r.title AS Title, 
+      r.salary AS Salary, 
+      d.name AS Department
+    FROM role r
+    LEFT JOIN department d ON r.department_id = d.id
+  `);
   printTable(rows);
 }
 
+// View employees with their roles, salaries, departments, and managers
 async function viewEmployees(){
-  const [rows, fields] = await db.query('SELECT * FROM employee');
+  const [rows, fields] = await db.query(`
+    SELECT 
+      e.id AS Employee_ID, 
+      CONCAT(e.first_name, ' ', e.last_name) AS Name,
+      r.title AS Title, 
+      r.salary AS Salary, 
+      d.name AS Department, 
+      CONCAT(m.first_name, ' ', m.last_name) AS Manager
+    FROM employee e
+    LEFT JOIN role r ON e.role_id = r.id
+    LEFT JOIN department d ON r.department_id = d.id
+    LEFT JOIN employee m ON e.manager_id = m.id
+  `);
   printTable(rows);
 }
 
@@ -69,11 +90,7 @@ function printTable(data){
   console.table(data);
 }
 
-// Get a list of departments and their IDs. Example:
-// [
-//   { id: 1, name: 'Sales' },
-//   { id: 2, name: 'Engineering' },
-//]
+
 async function getDepartments(){
   const [rows, fields] = await db.query('SELECT * FROM department');
   return rows.map(row => ({ name: row.name, value: row.id }));
@@ -102,7 +119,7 @@ async function addEmployee(employeeInfo){
 }
 
 async function updateEmployeeRole(employeeInfo){
-  await db.query('UPDATE employee SET role_id = ? WHERE id = ?', [employeeInfo.role, employeeInfo.id]);
+  await db.query('UPDATE employee SET role_id = ? WHERE id = ?', [employeeInfo.role, employeeInfo.employee]);
 }
 
 module.exports = {
