@@ -1,5 +1,4 @@
 const inquirer = require('inquirer');
-//const prompt = require('./prompt.js');
 const db = require('./sql/sql.js');
 
 async function addDepartment(){
