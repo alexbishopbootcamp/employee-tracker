@@ -4,7 +4,8 @@
   "description": "A command line CMS for an employee database",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",

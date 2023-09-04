@@ -149,8 +149,26 @@ async function updateEmployeeRole(){
   db.viewEmployees();
 }
 
-function exit(){}
+async function rebuildDatabase(){
+  const warning = [
+    {
+      type: 'confirm',
+      name: 'confirm',
+      message: '\u001b[31m!WARNING! Are you sure you want to rebuild the database? This will permanently delete all data.',
+    },
+  ];
+  const confirm = await inquirer.prompt(warning);
+  if (confirm.confirm){
+    await db.rebuildDatabase();
+    console.log('Database rebuilt.');
+  } else {
+    console.log('Database rebuild aborted.');
+  }
+  console.log();
+}
 
+// Does nothing for now, but could be used to clean up resources
+function exit(){}
 
 const mainMenu = [
   {
@@ -165,6 +183,7 @@ const mainMenu = [
       { name: 'Add a role', value: addRole },
       { name: 'Add an employee', value: addEmployee },
       { name: 'Update an employee role', value: updateEmployeeRole },
+      { name: 'Rebuild database', value: rebuildDatabase},
       { name: 'Exit', value: exit },
     ],
   },

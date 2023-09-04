@@ -37,7 +37,7 @@ async function startup(){
 
 async function shutdown(){
   await db.end();
-  printTable('Disconnected from database.');
+  console.log('Disconnected from database.');
 }
 
 async function viewDepartments(){
@@ -120,4 +120,5 @@ module.exports = {
   addRole,
   addEmployee,
   updateEmployeeRole,
+  rebuildDatabase,
 };
