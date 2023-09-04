@@ -16,14 +16,6 @@ async function viewEmployees(){
   printTable(employees);
 }
 
-// Example data:
-// [
-//   { id: 1, name: 'Sales' },
-//   { id: 2, name: 'Engineering' },
-//   { id: 3, name: 'Finance' },
-//   { id: 4, name: 'Legal' }
-// ]
-
 // Do this properly later
 function printTable(data){
   // Get max length of each column
