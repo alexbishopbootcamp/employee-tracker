@@ -62,7 +62,7 @@ async function viewRoles(){
 async function viewEmployees(){
   const [rows, fields] = await db.query(`
     SELECT 
-      e.id AS Employee_ID, 
+      e.id AS EmployeeID, 
       CONCAT(e.first_name, ' ', e.last_name) AS Name,
       r.title AS Title, 
       r.salary AS Salary, 
