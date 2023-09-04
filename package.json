@@ -1,0 +1,28 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "A command line CMS for an employee database",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexbishopbootcamp/employee-tracker.git"
+  },
+  "keywords": [
+    "CMS",
+    "database",
+    "employee"
+  ],
+  "author": "Alex Bishop",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexbishopbootcamp/employee-tracker/issues"
+  },
+  "homepage": "https://github.com/alexbishopbootcamp/employee-tracker#readme",
+  "dependencies": {
+    "inquirer": "^8.2.4",
+    "mysql2": "^3.6.0"
+  }
+}
