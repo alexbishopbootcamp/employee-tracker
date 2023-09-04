@@ -48,7 +48,7 @@ async function viewDepartments(){
 async function viewRoles(){
   const [rows, fields] = await db.query(`
     SELECT 
-      r.id AS Role_ID, 
+      r.id AS RoleID, 
       r.title AS Title, 
       r.salary AS Salary, 
       d.name AS Department
