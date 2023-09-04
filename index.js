@@ -17,11 +17,13 @@ async function viewEmployees(){
 }
 
 function printTable(data){
+  const nullString = 'None'; // String to display if value is null
+
   // Get max length of each column
   const columnLengths = {};
   for (const row of data){
     for (const [key, value] of Object.entries(row)){
-      columnLengths[key] = Math.max(columnLengths[key] || 0,  value ? value.toString().length : 4,  key.length);
+      columnLengths[key] = Math.max(columnLengths[key] || 0,  value ? value.toString().length : nullString.length,  key.length);
     }
   }
 
@@ -43,7 +45,7 @@ function printTable(data){
   for (const row of data){
     let line = '';
     for (const [key, value] of Object.entries(row)){
-      line += (value ? value.toString().padEnd(columnLengths[key]) : "None") + '   ';
+      line += (value ? value.toString().padEnd(columnLengths[key]) : nullString) + '   ';
     }
     console.log(line);
   }
