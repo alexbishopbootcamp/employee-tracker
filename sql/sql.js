@@ -65,6 +65,7 @@ async function viewEmployees(){
 
 // Do this properly later
 function printTable(data){
+  console.log();
   console.table(data);
 }
 

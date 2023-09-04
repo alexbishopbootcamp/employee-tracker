@@ -12,6 +12,7 @@ async function addDepartment(){
   
   const departmentInfo = await inquirer.prompt(addDepartmentMenu);
   await db.addDepartment(departmentInfo);
+  db.viewDepartments();
 }
 
 async function addRole(){
@@ -36,6 +37,7 @@ async function addRole(){
   ];
   const roleInfo = await inquirer.prompt(addRoleMenu);
   await db.addRole(roleInfo);
+  db.viewRoles();
 }
 
 async function addEmployee(){
@@ -69,6 +71,7 @@ async function addEmployee(){
   ];
   const employeeInfo = await inquirer.prompt(addEmployeeMenu);
   await db.addEmployee(employeeInfo);
+  db.viewEmployees();
 }
 
 async function updateEmployeeRole(){
@@ -90,6 +93,7 @@ async function updateEmployeeRole(){
   ];
   const employeeInfo = await inquirer.prompt(updateEmployeeRoleMenu);
   await db.updateEmployeeRole(employeeInfo);
+  db.viewEmployees();
 }
 
 function exit(){}
