@@ -68,10 +68,53 @@ function printTable(data){
   console.table(data);
 }
 
+// Get a list of departments and their IDs. Example:
+// [
+//   { id: 1, name: 'Sales' },
+//   { id: 2, name: 'Engineering' },
+//]
+async function getDepartments(){
+  const [rows, fields] = await db.query('SELECT * FROM department');
+  return rows.map(row => ({ name: row.name, value: row.id }));
+}
+
+async function getRoles(){
+  const [rows, fields] = await db.query('SELECT * FROM role');
+  return rows.map(row => ({ name: row.title, value: row.id }));
+}
+
+async function getEmployees(){
+  const [rows, fields] = await db.query('SELECT * FROM employee');
+  return rows.map(row => ({ name: row.first_name + ' ' + row.last_name, value: row.id }));
+}
+
+async function addDepartment(departmentInfo){
+  await db.query('INSERT INTO department (name) VALUES (?)', [departmentInfo.name]);
+}
+
+async function addRole(roleInfo){
+  await db.query('INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)', [roleInfo.title, roleInfo.salary, roleInfo.department]);
+}
+
+async function addEmployee(employeeInfo){
+  await db.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [employeeInfo.firstName, employeeInfo.lastName, employeeInfo.role, employeeInfo.manager]);
+}
+
+async function updateEmployeeRole(employeeInfo){
+  await db.query('UPDATE employee SET role_id = ? WHERE id = ?', [employeeInfo.role, employeeInfo.id]);
+}
+
 module.exports = {
   startup,
   shutdown,
   viewDepartments,
   viewRoles,
   viewEmployees,
+  getDepartments,
+  getRoles,
+  getEmployees,
+  addDepartment,
+  addRole,
+  addEmployee,
+  updateEmployeeRole,
 };
