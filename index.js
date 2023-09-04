@@ -13,9 +13,8 @@ const db = sql.createConnection(
   console.log('Connected to database.')
 );
 
-
 // Build template database from seeds.sql
-function rebuildDatabase() {
+function rebuildDatabase(){
     db.query('DROP DATABASE IF EXISTS employee_db', (err, res) => {
         if (err) throw err;
         console.log('Dropped database employee_db');
@@ -27,5 +26,34 @@ function rebuildDatabase() {
     db.end();
 }
 
+function startup(){
 
-rebuildDatabase();
+  // Check if employee_db exists, rebuild if necessary
+  db.query('SHOW DATABASES', (err, res) => {
+    if (err) throw err;
+    if (res.some(entry => entry.Database === 'employee_db')) {
+      console.log('Database employee_db exists');
+    } else {
+      console.log('Database employee_db does not exist');
+      rebuildDatabase();
+    }
+  });
+
+  db.query('USE employee_db', (err, res) => {
+    if (err) throw err;
+    console.log('Using employee_db');
+  });
+}
+
+function shutdown(){
+  db.end();
+  console.log('Disconnected from database.');
+}
+
+function app(){
+  startup();
+
+}
+
+
+app();
