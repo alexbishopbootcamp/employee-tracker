@@ -1,6 +1,36 @@
 const inquirer = require('inquirer');
 const db = require('./sql/sql.js');
 
+async function viewDepartments(){
+  const departments = await db.viewDepartments();
+  printTable(departments);
+}
+
+async function viewRoles(){
+  const roles = await db.viewRoles();
+  printTable(roles);
+}
+
+async function viewEmployees(){
+  const employees = await db.viewEmployees();
+  printTable(employees);
+}
+
+// Example data:
+// [
+//   { id: 1, name: 'Sales' },
+//   { id: 2, name: 'Engineering' },
+//   { id: 3, name: 'Finance' },
+//   { id: 4, name: 'Legal' }
+// ]
+
+// Do this properly later
+function printTable(data){
+  console.log();
+  console.table(data);
+}
+
+
 async function addDepartment(){
   const addDepartmentMenu = [
     {
@@ -105,9 +135,9 @@ const mainMenu = [
     name: 'mainMenu',
     message: 'What would you like to do?',
     choices: [
-      { name: 'View all departments', value: db.viewDepartments },
-      { name: 'View all roles', value: db.viewRoles },
-      { name: 'View all employees', value: db.viewEmployees },
+      { name: 'View all departments', value: viewDepartments },
+      { name: 'View all roles', value: viewRoles },
+      { name: 'View all employees', value: viewEmployees },
       { name: 'Add a department', value: addDepartment },
       { name: 'Add a role', value: addRole },
       { name: 'Add an employee', value: addEmployee },

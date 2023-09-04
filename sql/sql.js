@@ -42,7 +42,7 @@ async function shutdown(){
 
 async function viewDepartments(){
   const [rows, fields] = await db.query('SELECT * FROM department');
-  printTable(rows);
+  return(rows);
 }
 
 async function viewRoles(){
@@ -55,7 +55,7 @@ async function viewRoles(){
     FROM role r
     LEFT JOIN department d ON r.department_id = d.id
   `);
-  printTable(rows);
+  return(rows);
 }
 
 // View employees with their roles, salaries, departments, and managers
@@ -73,23 +73,8 @@ async function viewEmployees(){
     LEFT JOIN department d ON r.department_id = d.id
     LEFT JOIN employee m ON e.manager_id = m.id
   `);
-  printTable(rows);
+  return(rows);
 }
-
-// Example data:
-// [
-//   { id: 1, name: 'Sales' },
-//   { id: 2, name: 'Engineering' },
-//   { id: 3, name: 'Finance' },
-//   { id: 4, name: 'Legal' }
-// ]
-
-// Do this properly later
-function printTable(data){
-  console.log();
-  console.table(data);
-}
-
 
 async function getDepartments(){
   const [rows, fields] = await db.query('SELECT * FROM department');
