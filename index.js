@@ -16,7 +16,6 @@ async function viewEmployees(){
   printTable(employees);
 }
 
-// Do this properly later
 function printTable(data){
   // Get max length of each column
   const columnLengths = {};
