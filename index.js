@@ -26,8 +26,38 @@ async function viewEmployees(){
 
 // Do this properly later
 function printTable(data){
+  // Get max length of each column
+  const columnLengths = {};
+  for (const row of data){
+    for (const [key, value] of Object.entries(row)){
+      columnLengths[key] = Math.max(columnLengths[key] || 0,  value ? value.toString().length : 4,  key.length);
+    }
+  }
+
+  // Print header
+  let header = '';
+  for (const [key, value] of Object.entries(columnLengths)){
+    header += key.padEnd(value) + '   ';
+  }
+  console.log(header);
+
+  // Print seperator
+  let seperator = '';
+  for (const [key, value] of Object.entries(columnLengths)){
+    seperator += ''.padEnd(value, '-') + '   ';
+  }
+  console.log(seperator);
+
+  // Print rows
+  for (const row of data){
+    let line = '';
+    for (const [key, value] of Object.entries(row)){
+      line += (value ? value.toString().padEnd(columnLengths[key]) : "None") + '   ';
+    }
+    console.log(line);
+  }
+
   console.log();
-  console.table(data);
 }
 
 
